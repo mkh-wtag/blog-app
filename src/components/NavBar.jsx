@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const NavBar = () => {
+  const { name, setIsLoggedIn } = useContext(UserContext);
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("name");
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -17,17 +25,32 @@ const NavBar = () => {
           </ul>
 
           <ul className="nav-profile">
-            <li>
-              <NavLink to="login">Login</NavLink>
-            </li>
+            {name ? (
+              <>
+                <li>
+                  Welcome, &nbsp;
+                  <NavLink to="profile">{name}</NavLink>
+                </li>
 
-            <li>
+                <li>
+                  <NavLink to="login" onClick={logout}>
+                    Logout
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <li>
+                <NavLink to="login">Login</NavLink>
+              </li>
+            )}
+
+            {/* <li>
               <NavLink to="register">Register</NavLink>
-            </li>
+            </li> */}
 
-            <li>
+            {/* <li>
               <NavLink to="profile">Profile</NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

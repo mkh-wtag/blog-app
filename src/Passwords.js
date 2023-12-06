@@ -1,25 +1,25 @@
-export const passwords = [
+export const userData = [
   {
-    name: "Mamun",
+    name: "mamun",
     userName: "kh-mamun",
-    password: "1234",
+    password: "123",
   },
 
   {
-    name: "Anis",
+    name: "anis",
     userName: "md-anis",
-    password: "1234",
+    password: "123",
   },
 
   {
-    name: "Popy",
+    name: "popy",
     userName: "kh-popy",
-    password: "1234",
+    password: "123",
   },
 
   {
-    name: "Mun",
+    name: "mun",
     userName: "kh-mun",
-    password: "1234",
+    password: "123",
   },
 ];

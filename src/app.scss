@@ -1,6 +1,7 @@
 .container {
   max-width: 117rem;
   margin: auto;
+  padding: 0 1.6rem;
 
   &-fluid {
   }
@@ -30,11 +31,17 @@
   height: 4rem;
   border: 0.1rem solid rgba(0, 0, 0, 0.1);
   padding: 0 1rem;
+  font-size: 1.6rem;
 
   &:focus {
     outline: none;
     border-color: rgba(0, 0, 0, 0.2);
   }
+}
+
+.area {
+  height: 10rem;
+  padding: 1rem;
 }
 
 .input-login {
@@ -55,14 +62,11 @@
   justify-content: space-between;
 }
 
-.navlink-wrapper,
-.nav-profile {
+.navlink-wrapper {
   display: flex;
   gap: 1.6rem;
 
   li {
-    list-style: none;
-
     a {
       display: block;
       text-decoration: none;
@@ -83,10 +87,120 @@
   }
 }
 
+.nav-profile {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  color: var(--white);
+
+  a {
+    color: var(--white);
+    text-decoration: none;
+  }
+}
+
 .not-found {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+}
+
+.write-message {
+  max-width: 50rem;
+  margin-bottom: 3rem;
+}
+
+.post-collection {
+  // display: grid;
+  // gap: 2rem;
+  // grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr));
+  margin-bottom: 2rem;
+}
+
+.post {
+  padding: 1.6rem;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+  border-left: 0.3rem solid var(--blue);
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.delete-post {
+  position: absolute;
+  right: 0.6rem;
+  top: 0;
+  font-size: 3rem;
+  transform: rotate(45deg);
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.post-author {
+  font-size: 1.4rem;
+  display: flex;
+  gap: 2rem;
+  // justify-content: space-between;
+}
+
+.like-comment {
+  display: flex;
+  gap: 2rem;
+  font-size: 1.4rem;
+  padding-top: 1.6rem;
+  margin-top: 2rem;
+  border-top: 0.1rem solid rgba(0, 0, 0, 0.05);
+}
+
+.button-like,
+.button-comment {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--blue);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.button-like[disabled] {
+  color: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.reply-comment {
+  font-size: 1.4rem;
+  margin-top: 2rem;
+}
+
+.write-comment {
+  max-width: 45rem;
+}
+
+.show-comment-wrapper {
+  margin-top: 2rem;
+  max-width: 50rem;
+  display: none; // Will be removed later
+}
+
+.show-comments {
+  margin-top: 1.4rem;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.05);
+
+  .write-comment {
+    margin-top: 1.4rem;
+  }
+}
+
+.comment,
+.comment-author {
+  font-size: 1.4rem;
 }

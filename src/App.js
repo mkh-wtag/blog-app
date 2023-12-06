@@ -7,22 +7,25 @@ import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFound";
 import Profile from "./components/Profile";
 import Register from "./components/Register";
+import UserProvider from "./context/UserContext";
 
 function App() {
   return (
     <>
-      <div className="container-fluid">
-        <NavBar />
+      <UserProvider>
+        <div className="container-fluid">
+          <NavBar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </UserProvider>
     </>
   );
 }
