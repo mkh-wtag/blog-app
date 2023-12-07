@@ -3,10 +3,10 @@ import { NavLink } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 const NavBar = () => {
-  const { name, setIsLoggedIn } = useContext(UserContext);
+  const { name, setName } = useContext(UserContext);
 
   const logout = () => {
-    setIsLoggedIn(false);
+    setName("");
     localStorage.removeItem("name");
   };
 
@@ -43,14 +43,6 @@ const NavBar = () => {
                 <NavLink to="login">Login</NavLink>
               </li>
             )}
-
-            {/* <li>
-              <NavLink to="register">Register</NavLink>
-            </li> */}
-
-            {/* <li>
-              <NavLink to="profile">Profile</NavLink>
-            </li> */}
           </ul>
         </div>
       </div>

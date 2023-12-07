@@ -3,17 +3,16 @@ import { UserContext } from "../context/UserContext";
 import { useRef } from "react";
 
 const Dashboard = () => {
-  const [posts, setPosts] = useState([]);
-  // const [likedIds, setLikedIds] = useState([]);
+  const [postList, setPostList] = useState([]);
   const textareaRef = useRef();
-  const [post, setPost] = useState("");
+  const [postTitle, setPostTitle] = useState("");
   const { name } = useContext(UserContext);
 
   useEffect(() => {
     let retrievedPosts;
-    if (localStorage.getItem("posts") !== null) {
+    if (localStorage.getItem("posts")) {
       retrievedPosts = JSON.parse(localStorage.getItem("posts"));
-      setPosts(retrievedPosts);
+      setPostList(retrievedPosts);
     }
   }, []);
 
@@ -21,27 +20,50 @@ const Dashboard = () => {
     e.preventDefault();
     const newPost = {
       id: new Date().getTime(),
-      title: post,
+      title: postTitle,
       date: new Date(),
       author: name,
       isPostOpen: false,
       likeCount: 0,
-      liked: false,
+      isLiked: false,
     };
 
-    if (post) {
-      posts.push(newPost);
-      localStorage.setItem("posts", JSON.stringify(posts));
+    if (postTitle) {
+      postList.push(newPost);
+      localStorage.setItem("posts", JSON.stringify(postList));
     }
 
-    setPost("");
+    setPostTitle("");
     textareaRef.current.focus();
   };
 
   const handleDelete = (id) => {
-    const deletedItem = posts.filter((item) => item.id !== id);
-    setPosts(deletedItem);
+    const deletedItem = postList.filter((item) => item.id !== id);
+    setPostList(deletedItem);
     localStorage.setItem("posts", JSON.stringify(deletedItem));
+  };
+
+  const openCommentBox = (id) => {
+    const newPosts = [...postList];
+    const curPost = postList.find((post) => post.id === id);
+    curPost.isPostOpen = !curPost.isPostOpen;
+    setPostList(newPosts);
+  };
+
+  const handleLikeCount = (id) => {
+    const newPosts = [...postList];
+    const curPost = postList.find((post) => post.id === id);
+
+    if (curPost.isLiked) {
+      curPost.isLiked = false;
+      curPost.likeCount = curPost.likeCount - 1;
+    } else {
+      curPost.isLiked = true;
+      curPost.likeCount = curPost.likeCount + 1;
+    }
+
+    setPostList(newPosts);
+    localStorage.setItem("posts", JSON.stringify(newPosts));
   };
 
   return (
@@ -56,8 +78,8 @@ const Dashboard = () => {
                 ref={textareaRef}
                 className="input-field area"
                 placeholder="Write a post"
-                value={post}
-                onChange={(e) => setPost(e.target.value)}
+                value={postTitle}
+                onChange={(e) => setPostTitle(e.target.value)}
               />
             </div>
 
@@ -69,45 +91,12 @@ const Dashboard = () => {
       )}
 
       <div className="post-collection">
-        {posts?.map((post) => {
+        {postList?.map((post) => {
           const { id, title, date, author, isPostOpen, likeCount } = post;
           const dateObject = new Date(date);
           const year = dateObject.getFullYear();
           const month = dateObject.getMonth();
           const day = dateObject.getDate().toString();
-
-          const openCommentBox = () => {
-            const newPosts = [...posts];
-            const curPost = posts.find((post) => post.id === id);
-            curPost.isPostOpen = !curPost.isPostOpen;
-            setPosts(newPosts);
-          };
-
-          const handleLikeCount = (id) => {
-            const newPosts = [...posts];
-            const curPost = posts.find((post) => post.id === id);
-            // let { likeCount, liked } = curPost;
-
-            if (curPost.liked) {
-              curPost.liked = false;
-              curPost.likeCount = curPost.likeCount - 1;
-            } else {
-              curPost.liked = true;
-              curPost.likeCount = likeCount + 1;
-            }
-            // curPost.likeCount = curPost.likeCount === 0 ? 1 : 0;
-            // likedIds.forEach((likedId) => {
-            //   console.log("id", likedId);
-            //   if (likedId === id) {
-            //     console.log("liked: ", likedId);
-            //     setLikedIds([...likedIds, id]);
-            //     curPost.likeCount = curPost.likeCount + 1;
-            //   }
-            // });
-
-            setPosts(newPosts);
-            localStorage.setItem("posts", JSON.stringify(newPosts));
-          };
 
           return (
             <div key={id} className="post">
@@ -146,7 +135,7 @@ const Dashboard = () => {
                   </button>
 
                   <button
-                    onClick={openCommentBox}
+                    onClick={() => openCommentBox(id)}
                     type="button"
                     className="button-comment"
                   >

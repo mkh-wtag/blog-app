@@ -4,14 +4,13 @@ export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [name, setName] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     setName(localStorage.getItem("name"));
-  });
+  }, [name]);
 
   return (
-    <UserContext.Provider value={{ name, isLoggedIn, setIsLoggedIn }}>
+    <UserContext.Provider value={{ name, setName }}>
       {children}
     </UserContext.Provider>
   );

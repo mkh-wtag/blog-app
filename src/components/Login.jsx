@@ -4,21 +4,21 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 
 const Login = () => {
-  const { setIsLoggedIn } = useContext(UserContext);
-  const [name, setName] = useState("");
+  const { setName } = useContext(UserContext);
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const loggedIn = userData.find(
-      (user) => user.name === name && user.password === password
+    const loggedIn = userData.some(
+      (user) => user.name === userName && user.password === password
     );
 
     if (loggedIn) {
+      localStorage.setItem("name", userName);
       navigate("/dashboard");
-      setIsLoggedIn(true);
-      localStorage.setItem("name", name);
+      setName("");
     }
   };
 
@@ -35,8 +35,8 @@ const Login = () => {
             type="text"
             className="input-field input-login"
             id="userName"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
 
