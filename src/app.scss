@@ -141,6 +141,12 @@
   font-size: 1.4rem;
   display: flex;
   gap: 2rem;
+
+  a {
+    font-size: 1.8rem;
+    text-decoration: none;
+    margin-left: 1rem;
+  }
 }
 
 .like-comment {
@@ -319,6 +325,9 @@
   label {
     display: block;
     margin-bottom: 1rem;
+  }
+
+  .profile {
   }
 
   .profile-banner {

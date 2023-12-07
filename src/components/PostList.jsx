@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
-import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 const PostList = ({
   handleDelete,

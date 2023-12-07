@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import React from "react";
 
 const EditProfile = () => {
-  const { name } = useContext(UserContext);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted");

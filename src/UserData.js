@@ -6,12 +6,6 @@ export const userData = [
   },
 
   {
-    name: "anis",
-    userName: "md-anis",
-    password: "123",
-  },
-
-  {
     name: "popy",
     userName: "kh-popy",
     password: "123",

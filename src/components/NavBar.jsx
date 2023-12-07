@@ -29,7 +29,7 @@ const NavBar = () => {
               <>
                 <li>
                   Welcome, &nbsp;
-                  <NavLink to="profile">{name}</NavLink>
+                  <NavLink to={name}>{name}</NavLink>
                 </li>
 
                 <li>
