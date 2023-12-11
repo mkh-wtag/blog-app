@@ -4,17 +4,24 @@ import { Link, useParams } from "react-router-dom";
 import { profileData } from "../ProfileInfo";
 
 const Profile = () => {
-  const { isLoggedIn } = useContext(UserContext);
-  const [profileInfo, setProfileInfo] = useState(profileData);
+  const { name } = useContext(UserContext);
+  const [profileInfo] = useState(profileData);
   const param = useParams();
-  const { name } = param;
 
   return (
     <div className="container">
       {profileInfo.map((profile) => {
-        const { id, userName, firstName, lastName, designation } = profile;
+        const {
+          id,
+          userName,
+          firstName,
+          lastName,
+          designation,
+          favoriteFood,
+          hobbies,
+        } = profile;
 
-        if (userName === name) {
+        if (userName === param.name) {
           return (
             <div key={id} className="profile">
               <div className="profile-banner">
@@ -38,8 +45,8 @@ const Profile = () => {
                   </div>
                 </div>
 
-                {isLoggedIn && (
-                  <Link className="button" to="/edit-profile">
+                {param.name === name && (
+                  <Link className="button" to={`/edit-profile/${name}`}>
                     Edit Profile
                   </Link>
                 )}
@@ -112,11 +119,9 @@ const Profile = () => {
                   <h4 className="title title-4">Favorite Food</h4>
 
                   <div className="skill-set">
-                    <span>Indian</span>
-                    <span>Chinese</span>
-                    <span>Continental</span>
-                    <span>English</span>
-                    <span>Bangladeshi</span>
+                    {favoriteFood.split(",").map((food) => (
+                      <span key={food}>{food}</span>
+                    ))}
                   </div>
                 </div>
 
@@ -137,11 +142,9 @@ const Profile = () => {
                   <h4 className="title title-4">My Hobbies</h4>
 
                   <ul className="hobbies">
-                    <li>Listening to music</li>
-                    <li>Going to gym</li>
-                    <li>Drawing pictures</li>
-                    <li>Creating artifacts</li>
-                    <li>Playing cricket</li>
+                    {hobbies.split(",").map((hobby) => (
+                      <li key={hobby}>{hobby}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
