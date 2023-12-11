@@ -44,26 +44,29 @@ const Dashboard = () => {
   };
 
   const openCommentBox = (id) => {
-    const newPosts = [...postList];
-    const currentPost = postList.find((post) => post.id === id);
-    currentPost.isPostOpen = !currentPost.isPostOpen;
-    setPostList(newPosts);
+    setPostList((prev) =>
+      prev.map((post) => {
+        return post.id === id
+          ? { ...post, isPostOpen: !post.isPostOpen }
+          : post;
+      })
+    );
   };
 
   const handleLikeCount = (id) => {
-    const newPosts = [...postList];
-    const currentPost = postList.find((post) => post.id === id);
+    setPostList((prev) =>
+      prev.map((post) => {
+        return post.id === id
+          ? {
+              ...post,
+              isLiked: post.isLiked ? false : true,
+              likeCount: post.isLiked ? post.likeCount - 1 : post.likeCount + 1,
+            }
+          : post;
+      })
+    );
 
-    if (currentPost.isLiked) {
-      currentPost.isLiked = false;
-      currentPost.likeCount = currentPost.likeCount - 1;
-    } else {
-      currentPost.isLiked = true;
-      currentPost.likeCount = currentPost.likeCount + 1;
-    }
-
-    setPostList(newPosts);
-    localStorage.setItem("posts", JSON.stringify(newPosts));
+    localStorage.setItem("posts", JSON.stringify(postList));
   };
 
   return (
