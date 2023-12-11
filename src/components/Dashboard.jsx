@@ -45,21 +45,21 @@ const Dashboard = () => {
 
   const openCommentBox = (id) => {
     const newPosts = [...postList];
-    const curPost = postList.find((post) => post.id === id);
-    curPost.isPostOpen = !curPost.isPostOpen;
+    const currentPost = postList.find((post) => post.id === id);
+    currentPost.isPostOpen = !currentPost.isPostOpen;
     setPostList(newPosts);
   };
 
   const handleLikeCount = (id) => {
     const newPosts = [...postList];
-    const curPost = postList.find((post) => post.id === id);
+    const currentPost = postList.find((post) => post.id === id);
 
-    if (curPost.isLiked) {
-      curPost.isLiked = false;
-      curPost.likeCount = curPost.likeCount - 1;
+    if (currentPost.isLiked) {
+      currentPost.isLiked = false;
+      currentPost.likeCount = currentPost.likeCount - 1;
     } else {
-      curPost.isLiked = true;
-      curPost.likeCount = curPost.likeCount + 1;
+      currentPost.isLiked = true;
+      currentPost.likeCount = currentPost.likeCount + 1;
     }
 
     setPostList(newPosts);
