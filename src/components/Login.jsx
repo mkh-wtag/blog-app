@@ -17,8 +17,8 @@ const Login = () => {
 
     if (loggedIn) {
       localStorage.setItem("name", userName);
-      navigate("/dashboard");
       setName("");
+      navigate("/dashboard");
     }
   };
 
