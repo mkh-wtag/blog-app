@@ -7,7 +7,7 @@ import NotFound from "./NotFound";
 import Profile from "./Profile";
 import Register from "./Register";
 
-const NavRoutes = () => {
+const RoutesComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -20,4 +20,4 @@ const NavRoutes = () => {
   );
 };
 
-export default NavRoutes;
+export default RoutesComponent;

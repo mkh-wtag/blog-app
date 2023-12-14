@@ -1,6 +1,6 @@
 import "./app.scss";
 import NavBar from "./components/NavBar";
-import NavRoutes from "./components/NavRoutes";
+import RoutesComponent from "./components/RoutesComponent";
 import UserProvider from "./context/UserContext";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
         <div className="container-fluid">
           <NavBar />
 
-          <NavRoutes />
+          <RoutesComponent />
         </div>
       </UserProvider>
     </>

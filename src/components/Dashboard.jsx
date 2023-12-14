@@ -10,7 +10,7 @@ const Dashboard = () => {
   const { name } = useContext(UserContext);
 
   useEffect(() => {
-    let retrievedPosts;
+    let retrievedPosts = [];
     if (localStorage.getItem("posts")) {
       retrievedPosts = JSON.parse(localStorage.getItem("posts"));
       setPostList(retrievedPosts);
