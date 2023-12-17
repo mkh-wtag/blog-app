@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "context/UserContext";
-import { userData } from "UserData";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
+import { useLocation } from "react-router-dom";
 
 const EditProfile = () => {
-  const param = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const { name } = useContext(UserContext);
   const [formInputs, setFormInputs] = useState({
@@ -17,7 +17,7 @@ const EditProfile = () => {
     hobbies: "",
   });
 
-  const currentUser = userData.find((user) => user.name === param.name);
+  const currentUser = location.state;
 
   useEffect(() => {
     setFormInputs(currentUser);

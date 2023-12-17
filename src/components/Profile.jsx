@@ -41,7 +41,11 @@ const Profile = () => {
           </div>
 
           {currentUser && (
-            <Link className="button" to={`/edit-profile/${name}`}>
+            <Link
+              className="button"
+              to={`/edit-profile/${name}`}
+              state={userProfile}
+            >
               Edit Profile
             </Link>
           )}
