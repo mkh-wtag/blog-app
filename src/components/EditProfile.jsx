@@ -37,19 +37,24 @@ const EditProfile = () => {
   };
 
   const deleteFood = (deletedFood) => {
-    const newFoodList = currentUser.favoriteFood
-      .split(",")
-      .filter((existingFood) => existingFood !== deletedFood);
+    const newFoodArray = currentUser.favoriteFood.split(",");
+    const newFoodList = newFoodArray.filter(
+      (existingFood) => existingFood !== deletedFood
+    );
+    const newFoodString = newFoodList.join();
 
-    setFormInputs({ ...currentUser, favoriteFood: newFoodList.join() });
+    setFormInputs({ ...currentUser, favoriteFood: newFoodString });
   };
 
   const deleteHobbies = (deletedHobby) => {
-    const newHobbyList = currentUser.hobbies
-      .split(",")
-      .filter((existingHobbies) => existingHobbies !== deletedHobby);
+    const newHobbyArray = currentUser.hobbies.split(",");
+    const newHobbyList = newHobbyArray.filter(
+      (existingHobbies) => existingHobbies !== deletedHobby
+    );
 
-    setFormInputs({ ...currentUser, hobbies: newHobbyList.join() });
+    const newHobbiesString = newHobbyList.join();
+
+    setFormInputs({ ...currentUser, hobbies: newHobbiesString });
   };
 
   return (
@@ -143,7 +148,7 @@ const EditProfile = () => {
                   <div className="skill-set">
                     {formInputs?.favoriteFood.split(",").map((food) => {
                       return (
-                        <span key={food}>
+                        <span key={`${food}-${new Date().getTime()}`}>
                           {food}
                           <button
                             onClick={() => deleteFood(food)}
@@ -174,7 +179,7 @@ const EditProfile = () => {
                   <ul className="hobbies">
                     {formInputs?.hobbies.split(",").map((hobby) => {
                       return (
-                        <li key={hobby}>
+                        <li key={`${hobby}-${new Date().getTime()}`}>
                           {hobby}
                           <button
                             className="delete"

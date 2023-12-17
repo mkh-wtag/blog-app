@@ -53,59 +53,35 @@ const Profile = () => {
             <h4 className="title title-4">My Skills</h4>
             <div className="skill-set">
               <span>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/HTML5_Badge.svg/2048px-HTML5_Badge.svg.png"
-                  alt="logo"
-                />
+                <img src="./html-logo.png" alt="logo" />
                 HTML
               </span>
               <span>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/CSS3_logo.svg/2048px-CSS3_logo.svg.png"
-                  alt="logo"
-                />
+                <img src="./css-logo.png" alt="logo" />
                 CSS
               </span>
               <span>
-                <img
-                  src="https://angular.io/assets/images/logos/angularjs/AngularJS-Shield.svg"
-                  alt="logo"
-                />
+                <img src="./angular-logo.svg" alt="logo" />
                 AngularJs
               </span>
               <span>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1150px-React-icon.svg.png"
-                  alt="logo"
-                />
+                <img src="./react-logo.png" alt="logo" />
                 ReactJs
               </span>
               <span>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/2101px-Adobe_Photoshop_CC_icon.svg.png"
-                  alt="logo"
-                />
+                <img src="./photoshop-logo.png" alt="logo" />
                 Photoshop
               </span>
               <span>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/1667px-Figma-logo.svg.png"
-                  alt="logo"
-                />
+                <img src="./figma-logo.png" alt="logo" />
                 Figma
               </span>
               <span>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/2101px-Adobe_Illustrator_CC_icon.svg.png"
-                  alt="logo"
-                />
+                <img src="./illustrator-logo.png" alt="logo" />
                 Illustrator
               </span>
               <span>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Microsoft_Office_logo_%282013%E2%80%932019%29.svg/1728px-Microsoft_Office_logo_%282013%E2%80%932019%29.svg.png"
-                  alt="logo"
-                />
+                <img src="./ms-logo.png" alt="logo" />
                 MS Office
               </span>
             </div>
@@ -116,7 +92,7 @@ const Profile = () => {
 
             <div className="skill-set">
               {favoriteFood.split(",").map((food) => (
-                <span key={food}>{food}</span>
+                <span key={`${food}-${new Date().getTime()}`}>{food}</span>
               ))}
             </div>
           </div>
@@ -139,7 +115,7 @@ const Profile = () => {
 
             <ul className="hobbies">
               {hobbies.split(",").map((hobby) => (
-                <li key={hobby}>{hobby}</li>
+                <li key={`${hobby}-${new Date().getTime()}`}>{hobby}</li>
               ))}
             </ul>
           </div>
