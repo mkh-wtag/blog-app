@@ -2,12 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "context/UserContext";
 import { useRef } from "react";
 import PostList from "components/PostList";
+import { userData } from "UserData";
 
 const Dashboard = () => {
   const [postList, setPostList] = useState([]);
   const textareaRef = useRef();
   const [postTitle, setPostTitle] = useState("");
   const { name } = useContext(UserContext);
+
+  localStorage.setItem("profileData", JSON.stringify(userData));
 
   useEffect(() => {
     let retrievedPosts = [];
