@@ -1,12 +1,12 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "./Login";
-import Dashboard from "./Dashboard";
-import Home from "./Home";
-import NotFound from "./NotFound";
-import Profile from "./Profile";
-import Register from "./Register";
-import EditProfile from "./EditProfile";
+import Login from "components/Login";
+import Dashboard from "components/Dashboard";
+import Home from "components/Home";
+import NotFound from "components/NotFound";
+import Profile from "components/Profile";
+import Register from "components/Register";
+import EditProfile from "components/EditProfile";
 
 const RoutesComponent = () => {
   return (

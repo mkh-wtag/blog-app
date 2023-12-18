@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/UserContext";
-import { userData } from "../UserData";
+import { UserContext } from "context/UserContext";
+import { userData } from "UserData";
 import { useNavigate, useParams } from "react-router";
 
 const EditProfile = () => {
@@ -68,7 +68,7 @@ const EditProfile = () => {
               <div className="edit-item">
                 <div className="form-holder">
                   <div className="profile-banner">
-                    <img src="../5.jpg" alt="banner-pic" />
+                    <img src="../assets/banner.jpg" alt="banner-pic" />
                   </div>
                 </div>
 
@@ -80,7 +80,7 @@ const EditProfile = () => {
 
               <div className="edit-item">
                 <div className="profile-pic">
-                  <img src="../profile-avatar.jpeg" alt="profile-pic" />
+                  <img src="../assets/profile-avatar.jpeg" alt="profile-pic" />
                 </div>
 
                 <div className="center-items">
@@ -154,7 +154,7 @@ const EditProfile = () => {
                             className="delete"
                             type="button"
                           >
-                            <img src="../close-icon.png" alt="close" />
+                            <img src="../assets/close-icon.png" alt="close" />
                           </button>
                         </span>
                       );
@@ -187,7 +187,7 @@ const EditProfile = () => {
                             type="button"
                             onClick={() => deleteHobbies(hobby)}
                           >
-                            <img src="../close-icon.png" alt="close" />
+                            <img src="../assets/close-icon.png" alt="close" />
                           </button>
                         </li>
                       );
