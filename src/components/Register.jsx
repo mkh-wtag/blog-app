@@ -2,8 +2,19 @@ import React, { useState } from "react";
 
 const Register = () => {
   const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  // const [formInputs, setFormInputs] = useState({
+  //   id: "",
+  //   userName: "",
+  //   firstName: "",
+  //   lastName: "",
+  //   designation: "",
+  //   favoriteFood: "",
+  //   hobbies: "",
+  // });
+
+  const savedProfiles = JSON.parse(localStorage.getItem("profileData"));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,20 +34,8 @@ const Register = () => {
             className="input-field input-login"
             id="name"
             name="name"
+            value={name}
             onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-
-        <div className="form-holder">
-          <label className="lebel" htmlFor="userName">
-            User name
-          </label>
-          <input
-            type="text"
-            className="input-field input-login"
-            id="userName"
-            name="userName"
-            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
 
@@ -49,6 +48,7 @@ const Register = () => {
             className="input-field input-login"
             id="password"
             name="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>

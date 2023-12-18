@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "context/UserContext";
-import { useNavigate } from "react-router";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const { name } = useContext(UserContext);
+  const [userList, setUserList] = useState([]);
+  const location = useLocation();
+  const [currentUser, setCurrentUser] = useState(location.state);
   const [formInputs, setFormInputs] = useState({
     id: "",
-    userName: "",
     firstName: "",
     lastName: "",
     designation: "",
@@ -17,7 +15,11 @@ const EditProfile = () => {
     hobbies: "",
   });
 
-  const currentUser = location.state;
+  useEffect(() => {
+    if (localStorage.getItem("profileData")) {
+      setUserList(JSON.parse(localStorage.getItem("profileData")));
+    }
+  }, []);
 
   useEffect(() => {
     setFormInputs(currentUser);
@@ -33,7 +35,18 @@ const EditProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/${name}`);
+    setFormInputs({ ...formInputs, formInputs });
+    setCurrentUser(formInputs);
+
+    let filteredUser = userList.filter((user) => user.id !== currentUser.id);
+
+    let updatedUser = userList.filter((user) => user.id === currentUser.id);
+    updatedUser = formInputs;
+    filteredUser.push(updatedUser);
+    // setUserList(filteredUser);
+
+    localStorage.setItem("profileData", JSON.stringify(filteredUser));
+    navigate(`/${currentUser.name}`);
   };
 
   const deleteFood = (food) => {
@@ -43,7 +56,10 @@ const EditProfile = () => {
     );
     const newFoodString = newFoodList.join();
 
-    setFormInputs({ ...currentUser, favoriteFood: newFoodString });
+    const updatedFood = { ...currentUser, favoriteFood: newFoodString };
+
+    setCurrentUser(updatedFood);
+    setFormInputs(updatedFood);
   };
 
   const deleteHobbies = (hobby) => {
@@ -54,7 +70,10 @@ const EditProfile = () => {
 
     const newHobbiesString = newHobbyList.join();
 
-    setFormInputs({ ...currentUser, hobbies: newHobbiesString });
+    const updatedHobbies = { ...currentUser, hobbies: newHobbiesString };
+
+    setCurrentUser(updatedHobbies);
+    setFormInputs(updatedHobbies);
   };
 
   return (
@@ -143,22 +162,23 @@ const EditProfile = () => {
                   />
 
                   <div className="skill-set">
-                    {formInputs?.favoriteFood.split(",").map((food) => {
-                      const getTime = new Date().getTime();
+                    {formInputs?.favoriteFood &&
+                      formInputs?.favoriteFood.split(",").map((food) => {
+                        const getTime = new Date().getTime();
 
-                      return (
-                        <span key={`${food}-${getTime}`}>
-                          {food}
-                          <button
-                            onClick={() => deleteFood(food)}
-                            className="delete"
-                            type="button"
-                          >
-                            <img src="../assets/close-icon.png" alt="close" />
-                          </button>
-                        </span>
-                      );
-                    })}
+                        return (
+                          <span key={`${food}-${getTime}`}>
+                            {food}
+                            <button
+                              onClick={() => deleteFood(food)}
+                              className="delete"
+                              type="button"
+                            >
+                              <img src="../assets/close-icon.png" alt="close" />
+                            </button>
+                          </span>
+                        );
+                      })}
                   </div>
                 </div>
               </div>
@@ -176,22 +196,23 @@ const EditProfile = () => {
                   />
 
                   <ul className="hobbies">
-                    {formInputs?.hobbies.split(",").map((hobby) => {
-                      const getTime = new Date().getTime();
+                    {formInputs?.hobbies &&
+                      formInputs?.hobbies.split(",").map((hobby) => {
+                        const getTime = new Date().getTime();
 
-                      return (
-                        <li key={`${hobby}-${getTime}`}>
-                          {hobby}
-                          <button
-                            className="delete"
-                            type="button"
-                            onClick={() => deleteHobbies(hobby)}
-                          >
-                            <img src="../assets/close-icon.png" alt="close" />
-                          </button>
-                        </li>
-                      );
-                    })}
+                        return (
+                          <li key={`${hobby}-${getTime}`}>
+                            {hobby}
+                            <button
+                              className="delete"
+                              type="button"
+                              onClick={() => deleteHobbies(hobby)}
+                            >
+                              <img src="../assets/close-icon.png" alt="close" />
+                            </button>
+                          </li>
+                        );
+                      })}
                   </ul>
                 </div>
               </div>
