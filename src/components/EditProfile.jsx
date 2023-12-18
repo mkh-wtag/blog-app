@@ -36,10 +36,10 @@ const EditProfile = () => {
     navigate(`/${name}`);
   };
 
-  const deleteFood = (deletedFood) => {
+  const deleteFood = (food) => {
     const newFoodArray = currentUser.favoriteFood.split(",");
     const newFoodList = newFoodArray.filter(
-      (existingFood) => existingFood !== deletedFood
+      (existingFood) => existingFood !== food
     );
     const newFoodString = newFoodList.join();
 
@@ -80,10 +80,7 @@ const EditProfile = () => {
 
               <div className="edit-item">
                 <div className="profile-pic">
-                  <img
-                    src="https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
-                    alt="profile-pic"
-                  />
+                  <img src="../profile-avatar.jpeg" alt="profile-pic" />
                 </div>
 
                 <div className="center-items">
@@ -147,8 +144,10 @@ const EditProfile = () => {
 
                   <div className="skill-set">
                     {formInputs?.favoriteFood.split(",").map((food) => {
+                      const getTime = new Date().getTime();
+
                       return (
-                        <span key={`${food}-${new Date().getTime()}`}>
+                        <span key={`${food}-${getTime}`}>
                           {food}
                           <button
                             onClick={() => deleteFood(food)}
@@ -178,8 +177,10 @@ const EditProfile = () => {
 
                   <ul className="hobbies">
                     {formInputs?.hobbies.split(",").map((hobby) => {
+                      const getTime = new Date().getTime();
+
                       return (
-                        <li key={`${hobby}-${new Date().getTime()}`}>
+                        <li key={`${hobby}-${getTime}`}>
                           {hobby}
                           <button
                             className="delete"

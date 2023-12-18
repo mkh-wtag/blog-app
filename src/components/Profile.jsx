@@ -26,10 +26,7 @@ const Profile = () => {
 
         <div className="profile-basic">
           <div className="profile-pic">
-            <img
-              src="https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
-              alt="profile-pic"
-            />
+            <img src="./profile-avatar.jpeg" alt="profile-pic" />
           </div>
 
           <div className="profile-intro">
