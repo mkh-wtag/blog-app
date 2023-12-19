@@ -12,6 +12,7 @@ const Profile = () => {
       setUserList(JSON.parse(localStorage.getItem("profileData")));
     }
   }, []);
+
   const currentUser = param.name === name;
 
   const userProfile = userList?.find(
@@ -35,7 +36,8 @@ const Profile = () => {
               {userProfile?.firstName} {userProfile?.lastName}
             </h1>
             <div className="profile-designation">
-              Designation: {userProfile?.designation}
+              {userProfile?.designation &&
+                `Designation: ${userProfile?.designation}`}
             </div>
           </div>
 

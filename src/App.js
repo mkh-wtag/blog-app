@@ -1,3 +1,4 @@
+import ChatComponent from "components/ChatComponent";
 import "./app.scss";
 import NavBar from "./components/NavBar";
 import RoutesComponent from "./components/RoutesComponent";
@@ -9,8 +10,8 @@ function App() {
       <UserProvider>
         <div className="container-fluid">
           <NavBar />
-
           <RoutesComponent />
+          <ChatComponent />
         </div>
       </UserProvider>
     </>
