@@ -46,10 +46,10 @@ const EditProfile = () => {
     setFormInputs({ ...currentUser, favoriteFood: newFoodString });
   };
 
-  const deleteHobbies = (deletedHobby) => {
+  const deleteHobbies = (hobby) => {
     const newHobbyArray = currentUser.hobbies.split(",");
     const newHobbyList = newHobbyArray.filter(
-      (existingHobbies) => existingHobbies !== deletedHobby
+      (existingHobbies) => existingHobbies !== hobby
     );
 
     const newHobbiesString = newHobbyList.join();
