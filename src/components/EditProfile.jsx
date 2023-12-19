@@ -43,7 +43,6 @@ const EditProfile = () => {
     let updatedUser = userList.filter((user) => user.id === currentUser.id);
     updatedUser = formInputs;
     filteredUser.push(updatedUser);
-    // setUserList(filteredUser);
 
     localStorage.setItem("profileData", JSON.stringify(filteredUser));
     navigate(`/${currentUser.name}`);

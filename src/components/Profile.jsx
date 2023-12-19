@@ -12,7 +12,6 @@ const Profile = () => {
       setUserList(JSON.parse(localStorage.getItem("profileData")));
     }
   }, []);
-
   const currentUser = param.name === name;
 
   const userProfile = userList?.find(
@@ -90,16 +89,18 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="profile-block">
-            <h4 className="title title-4">Favorite Food</h4>
+          {userProfile?.favoriteFood && (
+            <div className="profile-block">
+              <h4 className="title title-4">Favorite Food</h4>
 
-            <div className="skill-set">
-              {userProfile?.favoriteFood.split(",").map((food) => {
-                const getTime = new Date().getTime();
-                return <span key={`${food}-${getTime}`}>{food}</span>;
-              })}
+              <div className="skill-set">
+                {userProfile?.favoriteFood.split(",").map((food) => {
+                  const getTime = new Date().getTime();
+                  return <span key={`${food}-${getTime}`}>{food}</span>;
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="profile-block">
             <h4 className="title title-4">Activity Details</h4>
@@ -114,16 +115,18 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="profile-block">
-            <h4 className="title title-4">My Hobbies</h4>
+          {userProfile?.hobbies && (
+            <div className="profile-block">
+              <h4 className="title title-4">My Hobbies</h4>
 
-            <ul className="hobbies">
-              {userProfile?.hobbies.split(",").map((hobby) => {
-                const getTime = new Date().getTime();
-                return <li key={`${hobby}-${getTime}`}>{hobby}</li>;
-              })}
-            </ul>
-          </div>
+              <ul className="hobbies">
+                {userProfile?.hobbies.split(",").map((hobby) => {
+                  const getTime = new Date().getTime();
+                  return <li key={`${hobby}-${getTime}`}>{hobby}</li>;
+                })}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>

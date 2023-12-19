@@ -140,14 +140,16 @@
 .post-author {
   font-size: 1.4rem;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 2rem;
 
-  a,
-  strong {
-    font-size: 1.8rem;
+  a {
     text-decoration: none;
     margin-left: 1rem;
+  }
+
+  strong {
+    font-size: 1.8rem;
   }
 }
 

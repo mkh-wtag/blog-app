@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { userData } from "UserData";
 import { useNavigate } from "react-router";
 import { UserContext } from "context/UserContext";
 
@@ -8,10 +7,15 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  let savedProfile = [];
+
+  if (localStorage.getItem("profileData")) {
+    savedProfile = JSON.parse(localStorage.getItem("profileData"));
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const loggedIn = userData.some(
+    const loggedIn = savedProfile.some(
       (user) => user.name === userName && user.password === password
     );
 
@@ -29,7 +33,7 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-holder">
           <label className="lebel" htmlFor="userName">
-            User name
+            Name
           </label>
           <input
             type="text"
