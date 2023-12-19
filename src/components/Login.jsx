@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import { userData } from "../UserData";
+import { userData } from "UserData";
 import { useNavigate } from "react-router";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "context/UserContext";
 
 const Login = () => {
   const { setName } = useContext(UserContext);

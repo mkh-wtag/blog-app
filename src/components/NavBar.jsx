@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "context/UserContext";
 
 const NavBar = () => {
   const { name, setName } = useContext(UserContext);
@@ -29,7 +29,7 @@ const NavBar = () => {
               <>
                 <li>
                   Welcome, &nbsp;
-                  <NavLink to="profile">{name}</NavLink>
+                  <NavLink to={name}>{name}</NavLink>
                 </li>
 
                 <li>

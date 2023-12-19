@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "../context/UserContext";
-import { useRef } from "react";
+import React, { useContext } from "react";
+import { UserContext } from "context/UserContext";
+import { Link } from "react-router-dom";
 
 const PostList = ({
   handleDelete,
@@ -31,7 +31,10 @@ const PostList = ({
 
             <div className="post-author">
               <span>
-                Author: <strong>{author}</strong>
+                Author:{" "}
+                <Link to={`/${author}`}>
+                  <strong>{author}</strong>
+                </Link>
               </span>
 
               <span>

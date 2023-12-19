@@ -140,7 +140,14 @@
 .post-author {
   font-size: 1.4rem;
   display: flex;
+  align-items: center;
   gap: 2rem;
+
+  a {
+    font-size: 1.8rem;
+    text-decoration: none;
+    margin-left: 1rem;
+  }
 }
 
 .like-comment {
@@ -199,4 +206,185 @@
 .comment,
 .comment-author {
   font-size: 1.4rem;
+}
+
+.profile-banner {
+  height: 30rem;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.profile-basic {
+  padding-left: 4rem;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 4rem;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), transparent) 1;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 20rem;
+  height: 20rem;
+  margin: -9rem 0 4rem;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.profile-intro {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 2.6rem;
+  margin-bottom: 1.4rem;
+}
+
+.profile-designation {
+  font-size: 1.8rem;
+}
+
+.profile-body {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr));
+  margin-bottom: 4rem;
+}
+
+.profile-block {
+  padding: 1.6rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.skill-set {
+  display: flex;
+  gap: 2rem;
+  flex-flow: row wrap;
+
+  span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.4rem;
+    border-radius: 0.3rem;
+    border: 0.1rem solid rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.05);
+
+    img {
+      width: 1.6rem;
+    }
+  }
+
+  .delete {
+    display: none;
+  }
+}
+
+.activity-details {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+
+  span {
+    border-radius: 0.3rem;
+    padding: 1rem 1.4rem;
+    border: 0.1rem solid rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.hobbies {
+  li {
+    padding: 1.6rem 0;
+    border-bottom: 0.1rem solid transparent;
+    border-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent) 1;
+  }
+}
+
+.center-items {
+  text-align: center;
+}
+
+.edit-profile {
+  max-width: 60rem;
+  margin: 0 auto 4rem;
+
+  label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .profile {
+  }
+
+  .profile-banner {
+    height: 20rem;
+  }
+
+  .profile-pic {
+    margin: 0 auto 1.6rem;
+  }
+
+  .skill-set,
+  .hobbies {
+    margin-top: 2rem;
+
+    .delete {
+      position: absolute;
+      display: inline-block;
+      border: none;
+      background: none;
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
+      cursor: pointer;
+      width: 1.6rem;
+      height: 1.6rem;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .hobbies {
+    margin-top: 3rem;
+
+    li {
+      position: relative;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-image: none;
+    }
+
+    .delete {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.edit-item {
+  padding: 1.6rem;
+  margin-bottom: 2rem;
+  border-bottom: 0.1rem solid transparent;
+  border-image: linear-gradient(
+      to right,
+      transparent,
+      rgba(0, 0, 0, 0.2),
+      transparent
+    )
+    1;
 }

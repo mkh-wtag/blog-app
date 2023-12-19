@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "context/UserContext";
 import { useRef } from "react";
-import PostList from "./PostList";
+import PostList from "components/PostList";
 
 const Dashboard = () => {
   const [postList, setPostList] = useState([]);
