@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "context/UserContext";
 import { Link } from "react-router-dom";
+import Comments from "./Comments";
 
 const PostList = ({
   handleDelete,
@@ -9,6 +10,7 @@ const PostList = ({
   postList,
 }) => {
   const { name } = useContext(UserContext);
+  const [writeComment, setWriteComment] = useState("");
 
   return (
     <div className="post-collection">
@@ -75,7 +77,12 @@ const PostList = ({
               <div className="reply-comment">
                 <div className="write-comment">
                   <div className="form-holder">
-                    <textarea className="input-field area" />
+                    <textarea
+                      className="input-field area"
+                      name="comment"
+                      value={writeComment}
+                      onChange={(e) => setWriteComment(e.target.value)}
+                    />
                   </div>
 
                   <button className="button button-sm">Post comment</button>
@@ -83,45 +90,7 @@ const PostList = ({
               </div>
             )}
 
-            <div className="show-comment-wrapper">
-              <div className="show-comments">
-                <div className="comment-author">Popy:</div>
-                <div className="comment">This is the first comment</div>
-
-                <div className="write-comment">
-                  <div className="form-holder">
-                    <textarea className="input-field area" />
-                  </div>
-
-                  <button className="button button-sm">Post comment</button>
-                </div>
-
-                <div className="show-comments">
-                  <div className="comment-author">Mamun:</div>
-                  <div className="comment">This is the second comment</div>
-                </div>
-
-                <div className="show-comments">
-                  <div className="comment-author">Popy:</div>
-                  <div className="comment">This is the third comment</div>
-                </div>
-              </div>
-
-              <div className="show-comments">
-                <div className="comment-author">Arif:</div>
-                <div className="comment">This is the first comment</div>
-
-                <div className="show-comments">
-                  <div className="comment-author">Mitu:</div>
-                  <div className="comment">This is the second comment</div>
-                </div>
-
-                <div className="show-comments">
-                  <div className="comment-author">Sumi:</div>
-                  <div className="comment">This is the third comment</div>
-                </div>
-              </div>
-            </div>
+            <Comments />
           </div>
         );
       })}
