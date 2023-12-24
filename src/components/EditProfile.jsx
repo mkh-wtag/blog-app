@@ -35,7 +35,7 @@ const EditProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormInputs({ ...formInputs, formInputs });
+    setFormInputs(formInputs);
     setCurrentUser(formInputs);
 
     let filteredUser = userList.filter((user) => user.id !== currentUser.id);

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const nagivate = useNavigate();
+  const [savedProfiles, setSavedProfiles] = useState([]);
   const [formInputs, setFormInputs] = useState({
     id: new Date().getTime(),
     name: "",
@@ -10,10 +11,13 @@ const Register = () => {
     password: "",
   });
 
-  let savedProfiles = [formInputs];
-  if (localStorage.getItem("profileData")) {
-    savedProfiles = JSON.parse(localStorage.getItem("profileData"));
-  }
+  // let savedProfiles = [formInputs];
+  useEffect(() => {
+    if (localStorage.getItem("profileData")) {
+      setSavedProfiles(JSON.parse(localStorage.getItem("profileData")));
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -24,19 +28,20 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isExists = savedProfiles?.some((profile) => {
-      if (profile.name === formInputs.name) {
-        alert(
-          `${profile.name} already exists. Please choose a different username`
-        );
-        return true;
-      }
-    });
+    const isProfileExists = savedProfiles?.some(
+      (profile) => profile.name === formInputs.name
+    );
 
-    !isExists && savedProfiles?.push(formInputs);
-    console.log(savedProfiles);
-    localStorage.setItem("profileData", JSON.stringify(savedProfiles));
-    !isExists && nagivate("/login");
+    isProfileExists &&
+      alert(
+        `${formInputs.name} already exists. Please choose a different username`
+      );
+
+    const updatedProfiles = [...savedProfiles, formInputs];
+
+    !isProfileExists && setSavedProfiles(updatedProfiles);
+    localStorage.setItem("profileData", JSON.stringify(updatedProfiles));
+    !isProfileExists && nagivate("/login");
   };
 
   return (

@@ -91,18 +91,20 @@ const Profile = () => {
             </div>
           </div>
 
-          {userProfile?.favoriteFood && (
-            <div className="profile-block">
-              <h4 className="title title-4">Favorite Food</h4>
+          <div className="profile-block">
+            <h4 className="title title-4">Favorite Food</h4>
 
+            {userProfile?.favoriteFood ? (
               <div className="skill-set">
                 {userProfile?.favoriteFood.split(",").map((food) => {
                   const getTime = new Date().getTime();
                   return <span key={`${food}-${getTime}`}>{food}</span>;
                 })}
               </div>
-            </div>
-          )}
+            ) : (
+              <h5 className="title title-5">No food selected...</h5>
+            )}
+          </div>
 
           <div className="profile-block">
             <h4 className="title title-4">Activity Details</h4>
@@ -117,18 +119,20 @@ const Profile = () => {
             </div>
           </div>
 
-          {userProfile?.hobbies && (
-            <div className="profile-block">
-              <h4 className="title title-4">My Hobbies</h4>
+          <div className="profile-block">
+            <h4 className="title title-4">My Hobbies</h4>
 
+            {userProfile?.hobbies ? (
               <ul className="hobbies">
                 {userProfile?.hobbies.split(",").map((hobby) => {
                   const getTime = new Date().getTime();
                   return <li key={`${hobby}-${getTime}`}>{hobby}</li>;
                 })}
               </ul>
-            </div>
-          )}
+            ) : (
+              <h5 className="title title-5">No hobby selected...</h5>
+            )}
+          </div>
         </div>
       </div>
     </div>

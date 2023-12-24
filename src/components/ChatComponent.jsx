@@ -15,7 +15,7 @@ const ChatComponent = () => {
     if (localStorage.getItem("profileData")) {
       setUserList(JSON.parse(localStorage.getItem("profileData")));
     }
-  }, []);
+  }, [isChatOpen]);
 
   return (
     <div className="chat-component">
