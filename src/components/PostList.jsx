@@ -8,14 +8,26 @@ const PostList = ({
   handleLikeCount,
   openCommentBox,
   postList,
+  submitComment,
+  onDelete,
 }) => {
   const { name } = useContext(UserContext);
   const [writeComment, setWriteComment] = useState("");
 
+  const handleComment = (id) => {
+    submitComment(writeComment, id);
+    setWriteComment("");
+  };
+
+  const deleteComment = (comment, id) => {
+    onDelete(comment, id);
+  };
+
   return (
     <div className="post-collection">
       {postList?.map((post) => {
-        const { id, title, date, author, isPostOpen, likeCount } = post;
+        const { id, title, date, author, isPostOpen, likeCount, comment } =
+          post;
         const dateObject = new Date(date);
         const year = dateObject.getFullYear();
         const month = dateObject.getMonth();
@@ -85,12 +97,17 @@ const PostList = ({
                     />
                   </div>
 
-                  <button className="button button-sm">Post comment</button>
+                  <button
+                    className="button button-sm"
+                    onClick={() => handleComment(id)}
+                  >
+                    Post comment
+                  </button>
                 </div>
               </div>
             )}
 
-            <Comments />
+            <Comments post={post} deleteComment={deleteComment} />
           </div>
         );
       })}

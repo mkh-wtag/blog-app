@@ -27,6 +27,7 @@ const Dashboard = () => {
       isPostOpen: false,
       likeCount: 0,
       isLiked: false,
+      comment: [],
     };
 
     if (postTitle) {
@@ -70,6 +71,34 @@ const Dashboard = () => {
     localStorage.setItem("posts", JSON.stringify(postList));
   };
 
+  const submitComment = (comment, id) => {
+    const updatedPost = postList.find((post) => {
+      return post.id === id;
+    });
+
+    updatedPost.comment = [...updatedPost.comment, comment];
+
+    // setPostList(postList);
+  };
+
+  const deleteComment = (deletedComment, id) => {
+    const newPostList = postList.filter((post) => {
+      return post.id !== id;
+    });
+
+    const deleteCommentPost = postList.find((post) => {
+      return post.id === id;
+    });
+
+    const newCommentList = deleteCommentPost.comment.filter(
+      (singleComment) => deletedComment !== singleComment
+    );
+
+    deleteCommentPost.comment = newCommentList;
+    setPostList([...newPostList, deleteCommentPost]);
+    localStorage.setItem("posts", JSON.stringify(postList));
+  };
+
   return (
     <div className="container">
       <h1 className="title title-1">Dashboard</h1>
@@ -99,6 +128,8 @@ const Dashboard = () => {
         handleLikeCount={handleLikeCount}
         openCommentBox={openCommentBox}
         postList={postList}
+        submitComment={submitComment}
+        onDelete={deleteComment}
       />
     </div>
   );

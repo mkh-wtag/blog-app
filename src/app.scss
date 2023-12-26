@@ -189,12 +189,8 @@
   max-width: 45rem;
 }
 
-.show-comment-wrapper {
-  margin-top: 2rem;
-  max-width: 50rem;
-}
-
 .show-comments {
+  max-width: 50rem;
   margin-top: 1.4rem;
   gap: 1rem;
   padding: 1rem;
@@ -206,9 +202,29 @@
   }
 }
 
-.comment,
 .comment-author {
+}
+
+.comment {
   font-size: 1.4rem;
+  border-radius: 0.3rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(255, 255, 255, 0.5);
+  margin-top: 1rem;
+  position: relative;
+
+  .delete {
+    padding: 0;
+    background: 0;
+    border: none;
+    position: absolute;
+    right: -0.8rem;
+    top: -0.8rem;
+
+    img {
+      width: 1.6rem;
+    }
+  }
 }
 
 .profile-banner {
