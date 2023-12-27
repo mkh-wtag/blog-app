@@ -27,6 +27,7 @@ const Dashboard = () => {
       isPostOpen: false,
       likeCount: 0,
       isLiked: false,
+      comments: [],
     };
 
     if (postTitle) {
@@ -36,6 +37,31 @@ const Dashboard = () => {
 
     setPostTitle("");
     textareaRef.current.focus();
+  };
+
+  const onSubmitComment = (comment, postid) => {
+    const newComment = {
+      id: new Date().getTime().toString(),
+      author: name,
+      title: comment,
+    };
+    const filteredPost = postList.filter((post) => post.id !== postid);
+    const commentedPost = postList.find((post) => post.id === postid);
+    commentedPost.comments = [...commentedPost.comments, newComment];
+
+    setPostList([...filteredPost, commentedPost]);
+    openCommentBox(postid);
+  };
+
+  const onDeleteComment = (postId, commentId) => {
+    const filteredPost = postList.filter((post) => post.id !== postId);
+    const commentedPost = postList.find((post) => post.id === postId);
+    const newCommentList = commentedPost.comments.filter(
+      (comment) => comment.id !== commentId
+    );
+
+    commentedPost.comments = newCommentList;
+    setPostList([...filteredPost, commentedPost]);
   };
 
   const handleDelete = (id) => {
@@ -99,6 +125,8 @@ const Dashboard = () => {
         handleLikeCount={handleLikeCount}
         openCommentBox={openCommentBox}
         postList={postList}
+        onSubmitComment={onSubmitComment}
+        onDeleteComment={onDeleteComment}
       />
     </div>
   );
