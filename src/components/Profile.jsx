@@ -1,25 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "context/UserContext";
 import { Link, useParams } from "react-router-dom";
-import { userData } from "UserData";
 
 const Profile = () => {
   const { name } = useContext(UserContext);
-  const [userList] = useState(userData);
+  const [userList, setUserList] = useState([]);
   const param = useParams();
+
+  useEffect(() => {
+    if (localStorage.getItem("profileData")) {
+      setUserList(JSON.parse(localStorage.getItem("profileData")));
+    }
+  }, []);
 
   const currentUser = param.name === name;
 
-  const userProfile = userList.find(
+  const userProfile = userList?.find(
     (thisUser) => thisUser?.name === param.name
   );
 
-  const { id, firstName, lastName, designation, favoriteFood, hobbies } =
-    userProfile;
-
   return (
     <div className="container">
-      <div key={id} className="profile">
+      <div key={userProfile?.id} className="profile">
         <div className="profile-banner">
           <img src="assets/banner.jpg" alt="banner-pic" />
         </div>
@@ -31,15 +33,20 @@ const Profile = () => {
 
           <div className="profile-intro">
             <h1 className="title title-1 profile-name">
-              {firstName} {lastName}
+              {userProfile?.firstName} {userProfile?.lastName}
             </h1>
             <div className="profile-designation">
-              Designation: {designation}
+              {userProfile?.designation &&
+                `Designation: ${userProfile?.designation}`}
             </div>
           </div>
 
           {currentUser && (
-            <Link className="button" to={`/edit-profile/${name}`}>
+            <Link
+              className="button"
+              to={`/edit-profile/${name}`}
+              state={userProfile}
+            >
               Edit Profile
             </Link>
           )}
@@ -87,12 +94,16 @@ const Profile = () => {
           <div className="profile-block">
             <h4 className="title title-4">Favorite Food</h4>
 
-            <div className="skill-set">
-              {favoriteFood.split(",").map((food) => {
-                const getTime = new Date().getTime();
-                return <span key={`${food}-${getTime}`}>{food}</span>;
-              })}
-            </div>
+            {userProfile?.favoriteFood ? (
+              <div className="skill-set">
+                {userProfile?.favoriteFood.split(",").map((food) => {
+                  const getTime = new Date().getTime();
+                  return <span key={`${food}-${getTime}`}>{food}</span>;
+                })}
+              </div>
+            ) : (
+              <h5 className="title title-5">No food selected...</h5>
+            )}
           </div>
 
           <div className="profile-block">
@@ -111,12 +122,16 @@ const Profile = () => {
           <div className="profile-block">
             <h4 className="title title-4">My Hobbies</h4>
 
-            <ul className="hobbies">
-              {hobbies.split(",").map((hobby) => {
-                const getTime = new Date().getTime();
-                return <li key={`${hobby}-${getTime}`}>{hobby}</li>;
-              })}
-            </ul>
+            {userProfile?.hobbies ? (
+              <ul className="hobbies">
+                {userProfile?.hobbies.split(",").map((hobby) => {
+                  const getTime = new Date().getTime();
+                  return <li key={`${hobby}-${getTime}`}>{hobby}</li>;
+                })}
+              </ul>
+            ) : (
+              <h5 className="title title-5">No hobby selected...</h5>
+            )}
           </div>
         </div>
       </div>

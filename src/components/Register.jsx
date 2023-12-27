@@ -1,12 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const nagivate = useNavigate();
+  const [savedProfiles, setSavedProfiles] = useState([]);
+  const [formInputs, setFormInputs] = useState({
+    id: new Date().getTime(),
+    name: "",
+    firstName: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    if (localStorage.getItem("profileData")) {
+      setSavedProfiles(JSON.parse(localStorage.getItem("profileData")));
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormInputs((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const isProfileExists = savedProfiles?.some(
+      (profile) => profile.name === formInputs.name
+    );
+
+    if (isProfileExists) {
+      alert(
+        `${formInputs.name} already exists. Please choose a different username`
+      );
+      return;
+    }
+
+    const updatedProfiles = [...savedProfiles, formInputs];
+
+    setSavedProfiles(updatedProfiles);
+    localStorage.setItem("profileData", JSON.stringify(updatedProfiles));
+    nagivate("/login");
   };
 
   return (
@@ -16,27 +52,31 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-holder">
           <label className="lebel" htmlFor="name">
-            Name
+            User name
           </label>
           <input
             type="text"
             className="input-field input-login"
             id="name"
             name="name"
-            onChange={(e) => setName(e.target.value)}
+            required
+            value={formInputs.name}
+            onChange={handleChange}
           />
         </div>
 
         <div className="form-holder">
-          <label className="lebel" htmlFor="userName">
-            User name
+          <label className="lebel" htmlFor="name">
+            First name
           </label>
           <input
             type="text"
             className="input-field input-login"
-            id="userName"
-            name="userName"
-            onChange={(e) => setUserName(e.target.value)}
+            id="firstName"
+            name="firstName"
+            required
+            value={formInputs.firstName}
+            onChange={handleChange}
           />
         </div>
 
@@ -49,7 +89,9 @@ const Register = () => {
             className="input-field input-login"
             id="password"
             name="password"
-            onChange={(e) => setPassword(e.target.value)}
+            required
+            value={formInputs.password}
+            onChange={handleChange}
           />
         </div>
 

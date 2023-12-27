@@ -32,9 +32,15 @@ const PostList = ({
             <div className="post-author">
               <span>
                 Author:{" "}
-                <Link to={`/${author}`}>
-                  <strong>{author}</strong>
-                </Link>
+                {name ? (
+                  <Link to={`/${author}`}>
+                    <strong>{author}</strong>
+                  </Link>
+                ) : (
+                  <Link to="/login">
+                    <strong>{author}</strong>
+                  </Link>
+                )}
               </span>
 
               <span>
