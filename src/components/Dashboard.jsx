@@ -31,8 +31,9 @@ const Dashboard = () => {
     };
 
     if (postTitle) {
-      postList.push(newPost);
-      localStorage.setItem("posts", JSON.stringify(postList));
+      const newPostList = [...postList, newPost];
+      setPostList(newPostList);
+      localStorage.setItem("posts", JSON.stringify(newPostList));
     }
 
     setPostTitle("");
@@ -45,23 +46,29 @@ const Dashboard = () => {
       author: name,
       title: comment,
     };
-    const filteredPost = postList.filter((post) => post.id !== postid);
-    const commentedPost = postList.find((post) => post.id === postid);
-    commentedPost.comments = [...commentedPost.comments, newComment];
+    const newPostList = postList.map((post) => {
+      if (post.id === postid) {
+        return { ...post, comments: [...post.comments, newComment] };
+      } else return post;
+    });
 
-    setPostList([...filteredPost, commentedPost]);
+    setPostList(newPostList);
     openCommentBox(postid);
+    localStorage.setItem("posts", JSON.stringify(newPostList));
   };
 
   const onDeleteComment = (postId, commentId) => {
-    const filteredPost = postList.filter((post) => post.id !== postId);
-    const commentedPost = postList.find((post) => post.id === postId);
-    const newCommentList = commentedPost.comments.filter(
-      (comment) => comment.id !== commentId
-    );
+    const newPostList = postList.map((post) => {
+      if (post.id === postId) {
+        const deletedCommentList = post.comments.filter(
+          (comment) => comment.id !== commentId
+        );
+        return { ...post, comments: [...deletedCommentList] };
+      } else return post;
+    });
 
-    commentedPost.comments = newCommentList;
-    setPostList([...filteredPost, commentedPost]);
+    setPostList(newPostList);
+    localStorage.setItem("posts", JSON.stringify(newPostList));
   };
 
   const handleDelete = (id) => {

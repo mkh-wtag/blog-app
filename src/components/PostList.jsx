@@ -14,7 +14,7 @@ const PostList = ({
   const [writeComment, setWriteComment] = useState("");
 
   const submitComment = (id) => {
-    onSubmitComment(writeComment, id);
+    writeComment && onSubmitComment(writeComment, id);
     setWriteComment("");
   };
 
@@ -112,15 +112,15 @@ const PostList = ({
                     <div className="comment-author">
                       <strong>{comment.author}:</strong>
                     </div>
-                    <div className="comment">
-                      {comment.title}
+                    <div className="comment">{comment.title}</div>
+                    {comment.author === name && (
                       <button
                         className="delete-icon"
                         onClick={() => handleDeleteComment(id, comment.id)}
                       >
                         <img src="assets/close-icon.png" alt="close" />
                       </button>
-                    </div>
+                    )}
                   </div>
                 );
               })}
