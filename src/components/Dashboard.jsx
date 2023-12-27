@@ -27,15 +27,48 @@ const Dashboard = () => {
       isPostOpen: false,
       likeCount: 0,
       isLiked: false,
+      comments: [],
     };
 
     if (postTitle) {
-      postList.push(newPost);
-      localStorage.setItem("posts", JSON.stringify(postList));
+      const newPostList = [...postList, newPost];
+      setPostList(newPostList);
+      localStorage.setItem("posts", JSON.stringify(newPostList));
     }
 
     setPostTitle("");
     textareaRef.current.focus();
+  };
+
+  const onSubmitComment = (comment, postid) => {
+    const newComment = {
+      id: new Date().getTime().toString(),
+      author: name,
+      title: comment,
+    };
+    const newPostList = postList.map((post) => {
+      if (post.id === postid) {
+        return { ...post, comments: [...post.comments, newComment] };
+      } else return post;
+    });
+
+    setPostList(newPostList);
+    openCommentBox(postid);
+    localStorage.setItem("posts", JSON.stringify(newPostList));
+  };
+
+  const onDeleteComment = (postId, commentId) => {
+    const newPostList = postList.map((post) => {
+      if (post.id === postId) {
+        const deletedCommentList = post.comments.filter(
+          (comment) => comment.id !== commentId
+        );
+        return { ...post, comments: [...deletedCommentList] };
+      } else return post;
+    });
+
+    setPostList(newPostList);
+    localStorage.setItem("posts", JSON.stringify(newPostList));
   };
 
   const handleDelete = (id) => {
@@ -99,6 +132,8 @@ const Dashboard = () => {
         handleLikeCount={handleLikeCount}
         openCommentBox={openCommentBox}
         postList={postList}
+        onSubmitComment={onSubmitComment}
+        onDeleteComment={onDeleteComment}
       />
     </div>
   );

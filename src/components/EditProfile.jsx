@@ -38,13 +38,14 @@ const EditProfile = () => {
     setFormInputs(formInputs);
     setCurrentUser(formInputs);
 
-    let filteredUser = userList.filter((user) => user.id !== currentUser.id);
+    const newUserList = userList.map((user) => {
+      if (user.id === currentUser.id) {
+        return formInputs;
+      } else return user;
+    });
 
-    let updatedUser = userList.filter((user) => user.id === currentUser.id);
-    updatedUser = formInputs;
-    filteredUser.push(updatedUser);
-
-    localStorage.setItem("profileData", JSON.stringify(filteredUser));
+    setUserList(newUserList);
+    localStorage.setItem("profileData", JSON.stringify(newUserList));
     navigate(`/${currentUser.name}`);
   };
 

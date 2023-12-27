@@ -190,9 +190,7 @@
 }
 
 .show-comment-wrapper {
-  margin-top: 2rem;
   max-width: 50rem;
-  display: none; // Will be removed later
 }
 
 .show-comments {
@@ -201,15 +199,34 @@
   padding: 1rem;
   border-radius: 0.5rem;
   background: rgba(0, 0, 0, 0.05);
+  position: relative;
 
   .write-comment {
     margin-top: 1.4rem;
   }
 }
 
-.comment,
 .comment-author {
+}
+
+.comment {
   font-size: 1.4rem;
+  padding: 0.6rem 1rem;
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.delete-icon {
+  position: absolute;
+  padding: 0;
+  background: none;
+  border: none;
+  right: -0.8rem;
+  top: -0.8rem;
+
+  img {
+    width: 1.6rem;
+  }
 }
 
 .profile-banner {
