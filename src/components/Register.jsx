@@ -11,7 +11,6 @@ const Register = () => {
     password: "",
   });
 
-  // let savedProfiles = [formInputs];
   useEffect(() => {
     if (localStorage.getItem("profileData")) {
       setSavedProfiles(JSON.parse(localStorage.getItem("profileData")));
@@ -32,16 +31,18 @@ const Register = () => {
       (profile) => profile.name === formInputs.name
     );
 
-    isProfileExists &&
+    if (isProfileExists) {
       alert(
         `${formInputs.name} already exists. Please choose a different username`
       );
+      return;
+    }
 
     const updatedProfiles = [...savedProfiles, formInputs];
 
-    !isProfileExists && setSavedProfiles(updatedProfiles);
+    setSavedProfiles(updatedProfiles);
     localStorage.setItem("profileData", JSON.stringify(updatedProfiles));
-    !isProfileExists && nagivate("/login");
+    nagivate("/login");
   };
 
   return (
