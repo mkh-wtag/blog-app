@@ -31,7 +31,11 @@ const ChatComponent = () => {
 
           <ul className="user-list">
             <li>
-              <h4 className="title title-4">User list</h4>
+              {userList.length !== 0 ? (
+                <h4 className="title title-4">User list</h4>
+              ) : (
+                <h4 className="title title-4">No users found</h4>
+              )}
             </li>
 
             {userList.map((user) => (
