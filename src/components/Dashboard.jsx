@@ -40,35 +40,39 @@ const Dashboard = () => {
     textareaRef.current.focus();
   };
 
-  const onSubmitComment = (comment, postid) => {
+  const onSubmitComment = (comment, postId) => {
     const newComment = {
       id: new Date().getTime().toString(),
       author: name,
       title: comment,
     };
+
     const newPostList = postList.map((post) => {
-      if (post.id === postid) {
+      if (post.id === postId) {
         return { ...post, comments: [...post.comments, newComment] };
-      } else return post;
+      }
+
+      return post;
     });
 
     setPostList(newPostList);
-    openCommentBox(postid);
+    openCommentBox(postId);
     localStorage.setItem("posts", JSON.stringify(newPostList));
   };
 
   const onDeleteComment = (postId, commentId) => {
-    const newPostList = postList.map((post) => {
-      if (post.id === postId) {
-        const deletedCommentList = post.comments.filter(
-          (comment) => comment.id !== commentId
-        );
-        return { ...post, comments: [...deletedCommentList] };
-      } else return post;
-    });
+    const _posts = [...postList];
 
-    setPostList(newPostList);
-    localStorage.setItem("posts", JSON.stringify(newPostList));
+    const post = _posts.find(({ id }) => id === postId);
+
+    if (post === undefined) {
+      return;
+    }
+
+    post.comments = post.comments.filter(({ id }) => id !== commentId);
+
+    setPostList(_posts);
+    localStorage.setItem("posts", JSON.stringify(_posts));
   };
 
   const handleDelete = (id) => {

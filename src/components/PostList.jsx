@@ -11,11 +11,15 @@ const PostList = ({
   onDeleteComment,
 }) => {
   const { name } = useContext(UserContext);
-  const [writeComment, setWriteComment] = useState("");
+  const [comment, setComment] = useState("");
 
   const submitComment = (id) => {
-    writeComment && onSubmitComment(writeComment, id);
-    setWriteComment("");
+    if (comment.trim() === "") {
+      return;
+    }
+
+    onSubmitComment(comment, id);
+    setComment("");
   };
 
   const handleDeleteComment = (postId, commentId) => {
@@ -24,7 +28,7 @@ const PostList = ({
 
   return (
     <div className="post-collection">
-      {postList?.map((post) => {
+      {postList.map((post) => {
         const { id, title, date, author, isPostOpen, likeCount, comments } =
           post;
         const dateObject = new Date(date);
@@ -90,8 +94,9 @@ const PostList = ({
                   <div className="form-holder">
                     <textarea
                       className="input-field area"
-                      value={writeComment}
-                      onChange={(e) => setWriteComment(e.target.value)}
+                      value={comment}
+                      placeholder="Enter your valuable comment"
+                      onChange={(e) => setComment(e.target.value)}
                     />
                   </div>
 

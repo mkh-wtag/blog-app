@@ -65,7 +65,9 @@ const EditProfile = () => {
     const newUserList = userList.map((user) => {
       if (user.id === currentUser.id) {
         return formInputs;
-      } else return user;
+      }
+
+      return user;
     });
 
     setUserList(newUserList);
