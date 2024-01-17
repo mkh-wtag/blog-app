@@ -23,12 +23,18 @@ const Profile = () => {
     <div className="container">
       <div key={userProfile?.id} className="profile">
         <div className="profile-banner">
-          <img src="assets/banner.jpg" alt="banner-pic" />
+          <img
+            src={userProfile?.bannerImage || "assets/banner.jpg"}
+            alt="banner-pic"
+          />
         </div>
 
         <div className="profile-basic">
           <div className="profile-pic">
-            <img src="assets/profile-avatar.jpeg" alt="profile-pic" />
+            <img
+              src={userProfile?.avatar || "assets/profile-avatar.jpeg"}
+              alt="profile-pic"
+            />
           </div>
 
           <div className="profile-intro">

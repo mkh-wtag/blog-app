@@ -13,6 +13,8 @@ const EditProfile = () => {
     designation: "",
     favoriteFood: "",
     hobbies: "",
+    bannerImage: "",
+    avatar: "",
   });
 
   useEffect(() => {
@@ -33,18 +35,43 @@ const EditProfile = () => {
     });
   };
 
+  const convertImageToBase64 = (file, callback) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      callback(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleBannerImage = (e) => {
+    const imageFile = e.target.files[0];
+    convertImageToBase64(imageFile, (base64String) => {
+      setFormInputs({ ...formInputs, bannerImage: base64String });
+    });
+  };
+
+  const handleAvatar = (e) => {
+    const imageFile = e.target.files[0];
+    convertImageToBase64(imageFile, (base64String) => {
+      setFormInputs({ ...formInputs, avatar: base64String });
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormInputs(formInputs);
     setCurrentUser(formInputs);
 
-    let filteredUser = userList.filter((user) => user.id !== currentUser.id);
+    const newUserList = userList.map((user) => {
+      if (user.id === currentUser.id) {
+        return formInputs;
+      }
 
-    let updatedUser = userList.filter((user) => user.id === currentUser.id);
-    updatedUser = formInputs;
-    filteredUser.push(updatedUser);
+      return user;
+    });
 
-    localStorage.setItem("profileData", JSON.stringify(filteredUser));
+    setUserList(newUserList);
+    localStorage.setItem("profileData", JSON.stringify(newUserList));
     navigate(`/${currentUser.name}`);
   };
 
@@ -86,25 +113,31 @@ const EditProfile = () => {
               <div className="edit-item">
                 <div className="form-holder">
                   <div className="profile-banner">
-                    <img src="../assets/banner.jpg" alt="banner-pic" />
+                    <img
+                      src={formInputs.bannerImage || "../assets/banner.jpg"}
+                      alt="banner-pic"
+                    />
                   </div>
                 </div>
 
                 <div className="form-holder">
                   <label htmlFor="banner">Banner image</label>
-                  <input type="file" id="banner" />
+                  <input type="file" id="banner" onChange={handleBannerImage} />
                 </div>
               </div>
 
               <div className="edit-item">
                 <div className="profile-pic">
-                  <img src="../assets/profile-avatar.jpeg" alt="profile-pic" />
+                  <img
+                    src={formInputs.avatar || "../assets/profile-avatar.jpeg"}
+                    alt="profile-pic"
+                  />
                 </div>
 
                 <div className="center-items">
                   <div className="form-holder">
                     <label htmlFor="proPic">Profile picture</label>
-                    <input type="file" id="proPic" />
+                    <input type="file" id="proPic" onChange={handleAvatar} />
                   </div>
                 </div>
               </div>

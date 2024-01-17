@@ -33,7 +33,7 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-holder">
           <label className="lebel" htmlFor="userName">
-            Name
+            Username
           </label>
           <input
             type="text"

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "context/UserContext";
 import { Link } from "react-router-dom";
 
@@ -7,13 +7,30 @@ const PostList = ({
   handleLikeCount,
   openCommentBox,
   postList,
+  onSubmitComment,
+  onDeleteComment,
 }) => {
   const { name } = useContext(UserContext);
+  const [comment, setComment] = useState("");
+
+  const submitComment = (id) => {
+    if (comment.trim() === "") {
+      return;
+    }
+
+    onSubmitComment(comment, id);
+    setComment("");
+  };
+
+  const handleDeleteComment = (postId, commentId) => {
+    onDeleteComment(postId, commentId);
+  };
 
   return (
     <div className="post-collection">
-      {postList?.map((post) => {
-        const { id, title, date, author, isPostOpen, likeCount } = post;
+      {postList.map((post) => {
+        const { id, title, date, author, isPostOpen, likeCount, comments } =
+          post;
         const dateObject = new Date(date);
         const year = dateObject.getFullYear();
         const month = dateObject.getMonth();
@@ -75,52 +92,43 @@ const PostList = ({
               <div className="reply-comment">
                 <div className="write-comment">
                   <div className="form-holder">
-                    <textarea className="input-field area" />
+                    <textarea
+                      className="input-field area"
+                      value={comment}
+                      placeholder="Enter your valuable comment"
+                      onChange={(e) => setComment(e.target.value)}
+                    />
                   </div>
 
-                  <button className="button button-sm">Post comment</button>
+                  <button
+                    className="button button-sm"
+                    onClick={() => submitComment(id)}
+                  >
+                    Post comment
+                  </button>
                 </div>
               </div>
             )}
 
             <div className="show-comment-wrapper">
-              <div className="show-comments">
-                <div className="comment-author">Popy:</div>
-                <div className="comment">This is the first comment</div>
-
-                <div className="write-comment">
-                  <div className="form-holder">
-                    <textarea className="input-field area" />
+              {comments.map((comment) => {
+                return (
+                  <div key={comment.id} className="show-comments">
+                    <div className="comment-author">
+                      <strong>{comment.author}:</strong>
+                    </div>
+                    <div className="comment">{comment.title}</div>
+                    {comment.author === name && (
+                      <button
+                        className="delete-icon"
+                        onClick={() => handleDeleteComment(id, comment.id)}
+                      >
+                        <img src="assets/close-icon.png" alt="close" />
+                      </button>
+                    )}
                   </div>
-
-                  <button className="button button-sm">Post comment</button>
-                </div>
-
-                <div className="show-comments">
-                  <div className="comment-author">Mamun:</div>
-                  <div className="comment">This is the second comment</div>
-                </div>
-
-                <div className="show-comments">
-                  <div className="comment-author">Popy:</div>
-                  <div className="comment">This is the third comment</div>
-                </div>
-              </div>
-
-              <div className="show-comments">
-                <div className="comment-author">Arif:</div>
-                <div className="comment">This is the first comment</div>
-
-                <div className="show-comments">
-                  <div className="comment-author">Mitu:</div>
-                  <div className="comment">This is the second comment</div>
-                </div>
-
-                <div className="show-comments">
-                  <div className="comment-author">Sumi:</div>
-                  <div className="comment">This is the third comment</div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         );
