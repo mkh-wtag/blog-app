@@ -2,16 +2,53 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "context/UserContext";
 import { Link } from "react-router-dom";
 
-const PostList = ({
-  handleDelete,
-  handleLikeCount,
-  openCommentBox,
-  postList,
-  onSubmitComment,
-  onDeleteComment,
-}) => {
+const PostList = ({ postList, setPostList }) => {
   const { name } = useContext(UserContext);
   const [comment, setComment] = useState("");
+
+  const handleDelete = (id) => {
+    const deletedItem = postList.filter((item) => item.id !== id);
+    setPostList(deletedItem);
+    localStorage.setItem("posts", JSON.stringify(deletedItem));
+  };
+
+  const onDeleteComment = (postId, commentId) => {
+    const _posts = [...postList];
+
+    const post = _posts.find(({ id }) => id === postId);
+
+    if (post === undefined) {
+      return;
+    }
+
+    post.comments = post.comments.filter(({ id }) => id !== commentId);
+
+    setPostList(_posts);
+    localStorage.setItem("posts", JSON.stringify(_posts));
+  };
+
+  const onSubmitComment = (comment, postId) => {
+    const newComment = {
+      id: new Date().getTime().toString(),
+      author: name,
+      title: comment,
+    };
+
+    const newPostList = postList.map((post) => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          comments: [...post.comments, newComment],
+          isPostOpen: false,
+        };
+      }
+
+      return post;
+    });
+
+    setPostList(newPostList);
+    localStorage.setItem("posts", JSON.stringify(newPostList));
+  };
 
   const submitComment = (id) => {
     if (comment.trim() === "") {
@@ -24,6 +61,32 @@ const PostList = ({
 
   const handleDeleteComment = (postId, commentId) => {
     onDeleteComment(postId, commentId);
+  };
+
+  const openCommentBox = (id) => {
+    setPostList((prev) =>
+      prev.map((post) => {
+        return post.id === id
+          ? { ...post, isPostOpen: !post.isPostOpen }
+          : post;
+      })
+    );
+  };
+
+  const handleLikeCount = (id) => {
+    setPostList((prev) =>
+      prev.map((post) => {
+        return post.id === id
+          ? {
+              ...post,
+              isLiked: post.isLiked ? false : true,
+              likeCount: post.isLiked ? post.likeCount - 1 : post.likeCount + 1,
+            }
+          : post;
+      })
+    );
+
+    localStorage.setItem("posts", JSON.stringify(postList));
   };
 
   return (
@@ -88,7 +151,7 @@ const PostList = ({
               </div>
             )}
 
-            {isPostOpen && (
+            {isPostOpen && name && (
               <div className="reply-comment">
                 <div className="write-comment">
                   <div className="form-holder">
