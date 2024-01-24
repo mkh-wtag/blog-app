@@ -1,11 +1,14 @@
+import { createUser } from "features/register/registerSlice";
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const dispatch = useDispatch();
+
   const nagivate = useNavigate();
   const [savedProfiles, setSavedProfiles] = useState([]);
   const [formInputs, setFormInputs] = useState({
-    id: new Date().getTime(),
     name: "",
     firstName: "",
     password: "",
@@ -38,7 +41,12 @@ const Register = () => {
       return;
     }
 
-    const updatedProfiles = [...savedProfiles, formInputs];
+    dispatch(createUser({ id: new Date().getTime(), ...formInputs }));
+
+    const updatedProfiles = [
+      ...savedProfiles,
+      { id: new Date().getTime(), ...formInputs },
+    ];
 
     setSavedProfiles(updatedProfiles);
     localStorage.setItem("profileData", JSON.stringify(updatedProfiles));
