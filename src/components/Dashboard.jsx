@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "context/UserContext";
 import { useRef } from "react";
 import PostList from "components/PostList";
+import { useDispatch } from "react-redux";
+import { createPost, loadPosts } from "features/register/postsSlice";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const [postList, setPostList] = useState([]);
   const textareaRef = useRef();
   const [postTitle, setPostTitle] = useState("");
@@ -31,6 +34,8 @@ const Dashboard = () => {
     };
 
     if (postTitle) {
+      dispatch(loadPosts());
+      dispatch(createPost(newPost));
       const newPostList = [...postList, newPost];
       setPostList(newPostList);
       localStorage.setItem("posts", JSON.stringify(newPostList));
@@ -38,73 +43,6 @@ const Dashboard = () => {
 
     setPostTitle("");
     textareaRef.current.focus();
-  };
-
-  const onSubmitComment = (comment, postId) => {
-    const newComment = {
-      id: new Date().getTime().toString(),
-      author: name,
-      title: comment,
-    };
-
-    const newPostList = postList.map((post) => {
-      if (post.id === postId) {
-        return { ...post, comments: [...post.comments, newComment] };
-      }
-
-      return post;
-    });
-
-    setPostList(newPostList);
-    openCommentBox(postId);
-    localStorage.setItem("posts", JSON.stringify(newPostList));
-  };
-
-  const onDeleteComment = (postId, commentId) => {
-    const _posts = [...postList];
-
-    const post = _posts.find(({ id }) => id === postId);
-
-    if (post === undefined) {
-      return;
-    }
-
-    post.comments = post.comments.filter(({ id }) => id !== commentId);
-
-    setPostList(_posts);
-    localStorage.setItem("posts", JSON.stringify(_posts));
-  };
-
-  const handleDelete = (id) => {
-    const deletedItem = postList.filter((item) => item.id !== id);
-    setPostList(deletedItem);
-    localStorage.setItem("posts", JSON.stringify(deletedItem));
-  };
-
-  const openCommentBox = (id) => {
-    setPostList((prev) =>
-      prev.map((post) => {
-        return post.id === id
-          ? { ...post, isPostOpen: !post.isPostOpen }
-          : post;
-      })
-    );
-  };
-
-  const handleLikeCount = (id) => {
-    setPostList((prev) =>
-      prev.map((post) => {
-        return post.id === id
-          ? {
-              ...post,
-              isLiked: post.isLiked ? false : true,
-              likeCount: post.isLiked ? post.likeCount - 1 : post.likeCount + 1,
-            }
-          : post;
-      })
-    );
-
-    localStorage.setItem("posts", JSON.stringify(postList));
   };
 
   return (
@@ -131,14 +69,7 @@ const Dashboard = () => {
         </div>
       )}
 
-      <PostList
-        handleDelete={handleDelete}
-        handleLikeCount={handleLikeCount}
-        openCommentBox={openCommentBox}
-        postList={postList}
-        onSubmitComment={onSubmitComment}
-        onDeleteComment={onDeleteComment}
-      />
+      <PostList postList={postList} setPostList={setPostList} />
     </div>
   );
 };
