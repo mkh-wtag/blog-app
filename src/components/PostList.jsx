@@ -7,9 +7,10 @@ const PostList = ({ postList, setPostList }) => {
   const [comment, setComment] = useState("");
 
   const handleDelete = (id) => {
-    const deletedItem = postList.filter((item) => item.id !== id);
-    setPostList(deletedItem);
-    localStorage.setItem("posts", JSON.stringify(deletedItem));
+    const items = postList.filter((item) => item.id !== id);
+
+    setPostList(items);
+    localStorage.setItem("posts", JSON.stringify(items));
   };
 
   const onDeleteComment = (postId, commentId) => {

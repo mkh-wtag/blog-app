@@ -2,12 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "context/UserContext";
 import { useRef } from "react";
 import PostList from "components/PostList";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createPost, loadPosts } from "features/register/postsSlice";
 
 const Dashboard = () => {
-  const allPosts = useSelector((state) => state.allPosts.posts);
-  console.log(allPosts);
   const dispatch = useDispatch();
   const [postList, setPostList] = useState([]);
   const textareaRef = useRef();
